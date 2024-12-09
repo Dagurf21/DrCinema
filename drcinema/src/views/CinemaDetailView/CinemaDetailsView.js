@@ -20,6 +20,8 @@ const CinemaDetailScreen = ({ route, navigation }) => {
         navigation.navigate('MovieDetail', { movie, cinema });
     };
 
+    console.log(cinema, "\n\n\n\n\n\n", movies, "\n", cinema.address);
+
     return (
         <View style={styles.container}>
             <View style={styles.detailContainer}>
