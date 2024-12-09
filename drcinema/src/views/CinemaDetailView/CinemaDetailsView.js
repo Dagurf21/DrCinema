@@ -1,7 +1,7 @@
 // src/views/CinemaDetailScreen.js
 
 import React, { useEffect } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Linking, ActivityIndicator, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMovies } from '../../redux/actions/movieActions';
 import MovieItem from '../../components/MovieItem/MovieItem';
@@ -20,6 +20,22 @@ const CinemaDetailScreen = ({ route, navigation }) => {
         navigation.navigate('MovieDetail', { movie, cinema });
     };
 
+    const openWebsite = (url) => {
+        console.log(url);
+
+        if (!url) {
+            console.error('Invalid URL');
+            return;
+        }
+
+        // Ensure the URL includes http:// or https://
+        const normalizedUrl = url.startsWith('http://') || url.startsWith('https://') ? url : `https://${url}`;
+
+        Linking.openURL(normalizedUrl).catch((err) =>
+            console.error('Failed to open URL:', err)
+        );
+    };
+
     console.log(cinema, "\n\n\n\n\n\n", movies, "\n", cinema.address);
 
     return (
@@ -31,7 +47,13 @@ const CinemaDetailScreen = ({ route, navigation }) => {
                     Address: {cinema.address}, {cinema.city}
                 </Text>
                 <Text>Phone: {cinema.phone}</Text>
-                <Text style={styles.website}>Website: {cinema.website}</Text>
+                {/* Clickable Website Link */}
+                <Text
+                    style={styles.website}
+                    onPress={() => openWebsite(cinema.website)}
+                >
+                    Website: {cinema.website}
+                </Text>
             </View>
 
             <Text style={styles.sectionTitle}>Movies Showing</Text>
@@ -64,13 +86,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     website: {
-        color: 'blue',
+        color: 'blue', // Makes it look like a link
+        textDecorationLine: 'underline', // Adds underline for better UX
     },
     sectionTitle: {
         fontSize: 18,
         marginVertical: 8,
         fontWeight: 'bold',
     },
+
 });
 
 export default CinemaDetailScreen;
