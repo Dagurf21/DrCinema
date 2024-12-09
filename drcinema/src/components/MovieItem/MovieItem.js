@@ -1,18 +1,18 @@
-// src/components/MovieItem.js
-
 import React from 'react';
 import { TouchableOpacity, Text, Image, StyleSheet, View } from 'react-native';
 
 const MovieItem = ({ movie, onPress }) => {
     return (
         <TouchableOpacity style={styles.itemContainer} onPress={() => onPress(movie)}>
-            {movie.thumbnailUrl && (
-                <Image source={{ uri: movie.thumbnailUrl }} style={styles.thumbnail} />
+            {movie.poster && (
+                <Image source={{ uri: movie.poster }} style={styles.thumbnail} />
             )}
             <View style={styles.details}>
-                <Text style={styles.movieName}>{movie.name}</Text>
-                <Text>Release Year: {movie.releaseYear}</Text>
-                <Text>Genres: {movie.genres.join(', ')}</Text>
+                <Text style={styles.movieTitle}>{movie.title}</Text>
+                <Text>Release Year: {movie.year}</Text>
+                <Text>
+                    Genres: {movie.genres.map(genre => `${genre.Name}`).join(', ')}
+                </Text>
             </View>
         </TouchableOpacity>
     );
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
     },
-    movieName: {
+    movieTitle: {
         fontSize: 16,
         fontWeight: 'bold',
     },
