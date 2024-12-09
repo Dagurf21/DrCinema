@@ -1,6 +1,7 @@
 # Dr. Cinema
 ## Description
-[A brief description of your React Native application.]
+This project is a React Native application designed to display movies currently playing in cinemas, using data from the kvikmyndir.is API. With this app, you can easily browse cinemas, check out movie details, and see what’s coming soon. It’s designed to be simple, easy to use, and fun to explore!
+
 ## Table of Contents
 - Installation
 - Features
@@ -16,7 +17,7 @@
   
 ## Running the app
 ### Navigate to project directory
-`cd your-project-name`
+`cd drcinema`
 
 ### Install dependencies
 `npm install`
