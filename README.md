@@ -1,4 +1,4 @@
-# Project Name
+# Dr. Cinema
 ## Description
 [A brief description of your React Native application.]
 ## Table of Contents
