@@ -12,6 +12,7 @@ import UpcomingMoviesViews from '../views/UpcomingMoviesViews/UpcomingMoviesView
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
+    console.log('AppNavigator');
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Cinemas">

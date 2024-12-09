@@ -8,6 +8,7 @@ import {
 import { getCinemas } from '../../api/api';
 
 export const fetchCinemas = () => {
+    console.log("cinemaActions.js")
     return async (dispatch) => {
         dispatch({ type: FETCH_CINEMAS_REQUEST });
 

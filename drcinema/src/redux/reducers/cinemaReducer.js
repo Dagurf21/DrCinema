@@ -13,6 +13,7 @@ const initialState = {
 };
 
 const cinemaReducer = (state = initialState, action) => {
+    console.log("cinemaReducer ->", action);
     switch (action.type) {
         case FETCH_CINEMAS_REQUEST:
             return { ...state, loading: true };

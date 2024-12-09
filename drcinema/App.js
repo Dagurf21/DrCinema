@@ -6,9 +6,10 @@ import store from './src/redux/store';
 import AppNavigator from './src/navigation/AppNavigator';
 
 export default function App() {
-  return (
-      <Provider store={store}>
-        <AppNavigator />
-      </Provider>
-  );
+    console.log("app.js")
+    return (
+        <Provider store={store}>
+          <AppNavigator />
+        </Provider>
+    );
 }

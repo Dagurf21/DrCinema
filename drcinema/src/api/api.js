@@ -11,22 +11,78 @@ const MANUAL_TOKEN = TOKEN_KEY;
 
 // Fetch all cinemas
 export const getCinemas = async () => {
+    console.log('getCinemas (Temporary Version)');
     try {
-        const response = await axios.get(`${BASE_URL}/theaters`, {
-            headers: {
-                'x-access-token': MANUAL_TOKEN,
-            },
-        });
-        console.log('Cinemas Response:', response.data);
-        return response.data.cinemas; // Adjust based on actual API response
+        const uniqueCinemaNames = await getUniqueCinemaNames();
+        console.log('Temporarily fetched unique cinema names:', uniqueCinemaNames);
+        return uniqueCinemaNames;
+
     } catch (error) {
-        console.error('Fetch Cinemas Error:', error.response || error.message);
+        console.error('Fetch Cinemas Error (Temporary Version):', error.response?.data || error.message);
         throw error;
     }
 };
 
+export const getUniqueCinemaNames = async () => {
+    console.log('getUniqueCinemaNames');
+    try {
+        const movies = await getMovies(); // Call the updated getMovies function
+
+        if (!Array.isArray(movies)) {
+            throw new Error('Unexpected data format: movies is not an array');
+        }
+
+        const uniqueCinemaNames = new Set();
+
+        movies.forEach(movie => {
+            if (movie.showtimes && Array.isArray(movie.showtimes)) {
+                movie.showtimes.forEach(showtime => {
+                    if (showtime.cinema && showtime.cinema.name) {
+                        uniqueCinemaNames.add(showtime.cinema.name);
+                    }
+                });
+            }
+        });
+
+        console.log('Unique Cinema Names:', [...uniqueCinemaNames]);
+        return [...uniqueCinemaNames];
+
+    } catch (error) {
+        console.error('Error fetching unique cinema names:', error.response?.data || error.message);
+        throw error;
+    }
+};
+
+
+export const getMovies = async () => {
+    console.log('getMovies');
+    try {
+        const response = await axios.get(`${BASE_URL}/movies`, {
+            headers: {
+                'x-access-token': MANUAL_TOKEN,
+            },
+        });
+
+        const { success, data, message } = response.data;
+
+        if (!success) {
+            throw new Error(message || 'Failed to fetch movies.');
+        }
+
+        console.log('Movies Response:', data);
+        return data; // Assuming data contains the movies array
+
+    } catch (error) {
+        console.error('Error fetching movies:', error.response?.data || error.message);
+        throw error;
+    }
+};
+
+
+
 // Fetch movies by cinema ID
 export const getMoviesByCinema = async (cinemaId) => {
+    console.log('getMoviesByCinema', cinemaId);
     try {
         const response = await axios.get(`${BASE_URL}/theaters/${cinemaId}/movies`, {
             headers: {
@@ -43,6 +99,7 @@ export const getMoviesByCinema = async (cinemaId) => {
 
 // Fetch movie details by movie ID
 export const getMovieDetails = async (movieId) => {
+    console.log('getMovieDetails', movieId);
     try {
         const response = await axios.get(`${BASE_URL}/movies/${movieId}`, {
             headers: {
