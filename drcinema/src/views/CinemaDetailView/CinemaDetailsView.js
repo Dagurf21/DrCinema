@@ -42,11 +42,11 @@ const CinemaDetailScreen = ({ route, navigation }) => {
         <View style={styles.container}>
             <View style={styles.detailContainer}>
                 <Text style={styles.name}>{cinema.name}</Text>
-                <Text>{cinema.description}</Text>
+                <Text>{cinema.description || "No description available"}</Text>
                 <Text>
                     Address: {cinema.address}, {cinema.city}
                 </Text>
-                <Text>Phone: {cinema.phone}</Text>
+                <Text>Phone: {cinema.phone || "Unavailable"}</Text>
                 {/* Clickable Website Link */}
                 <Text
                     style={styles.website}

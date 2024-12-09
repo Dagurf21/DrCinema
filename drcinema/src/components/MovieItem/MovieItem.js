@@ -4,10 +4,11 @@ import React from 'react';
 import { TouchableOpacity, Text, Image, StyleSheet, View } from 'react-native';
 
 const MovieItem = ({ movie, onPress }) => {
+    console.log('Movie thumbnail URL:', movie.poster);
     return (
         <TouchableOpacity style={styles.itemContainer} onPress={() => onPress(movie)}>
-            {movie.thumbnailUrl && (
-                <Image source={{ uri: movie.thumbnailUrl }} style={styles.thumbnail} />
+            {movie.poster && (
+                <Image source={{ uri: movie.poster }} style={styles.thumbnail} />
             )}
             <View style={styles.details}>
                 <Text style={styles.movieTitle}>{movie.title}</Text>
