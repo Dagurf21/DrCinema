@@ -26,7 +26,7 @@ const CinemaDetailScreen = ({ route, navigation }) => {
                 <Text style={styles.name}>{cinema.name}</Text>
                 <Text>{cinema.description}</Text>
                 <Text>
-                    Address: {cinema.address.street}, {cinema.address.city}
+                    Address: {cinema.address}, {cinema.city}
                 </Text>
                 <Text>Phone: {cinema.phone}</Text>
                 <Text style={styles.website}>Website: {cinema.website}</Text>

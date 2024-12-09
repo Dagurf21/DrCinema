@@ -7,52 +7,23 @@ const BASE_URL = 'https://api.kvikmyndir.is';
 
 // Replace user:pass with username and password
 // curl --silent --location --request POST 'https://api.kvikmyndir.is/authenticate' --header "Authorization: Basic $(echo -n "user:pass" | base64)" | jq '.token' | sed 's/"//g'
-const MANUAL_TOKEN = TOKEN_KEY;
+const MANUAL_TOKEN = TOKEN_KEY.TOKEN_KEY;
 
-// Fetch all cinemas
 export const getCinemas = async () => {
-    console.log('getCinemas (Temporary Version)');
+    console.log('getCinemas');
     try {
-        const uniqueCinemaNames = await getUniqueCinemaNames();
-        console.log('Temporarily fetched unique cinema names:', uniqueCinemaNames);
-        return uniqueCinemaNames;
-
-    } catch (error) {
-        console.error('Fetch Cinemas Error (Temporary Version):', error.response?.data || error.message);
-        throw error;
-    }
-};
-
-export const getUniqueCinemaNames = async () => {
-    console.log('getUniqueCinemaNames');
-    try {
-        const movies = await getMovies(); // Call the updated getMovies function
-
-        if (!Array.isArray(movies)) {
-            throw new Error('Unexpected data format: movies is not an array');
-        }
-
-        const uniqueCinemaNames = new Set();
-
-        movies.forEach(movie => {
-            if (movie.showtimes && Array.isArray(movie.showtimes)) {
-                movie.showtimes.forEach(showtime => {
-                    if (showtime.cinema && showtime.cinema.name) {
-                        uniqueCinemaNames.add(showtime.cinema.name);
-                    }
-                });
-            }
+        const response = await axios.get(`${BASE_URL}/theaters`, {
+            headers: {
+                'x-access-token': MANUAL_TOKEN,
+            },
         });
 
-        console.log('Unique Cinema Names:', [...uniqueCinemaNames]);
-        return [...uniqueCinemaNames];
-
+        return response.data; // Adjust based on the actual response structure
     } catch (error) {
-        console.error('Error fetching unique cinema names:', error.response?.data || error.message);
+        console.error('Error fetching theaters:', error.response?.data || error.message);
         throw error;
     }
 };
-
 
 export const getMovies = async () => {
     console.log('getMovies');
@@ -63,14 +34,15 @@ export const getMovies = async () => {
             },
         });
 
-        const { success, data, message } = response.data;
+        const movies = response.data;
+        //console.log(movies);
 
-        if (!success) {
-            throw new Error(message || 'Failed to fetch movies.');
+        if (movies.length === 0) {
+            throw new Error('Failed to fetch movies.');
         }
 
-        console.log('Movies Response:', data);
-        return data; // Assuming data contains the movies array
+        //console.log('Movies Response:', movies);
+        return movies; // Assuming data contains the movies array
 
     } catch (error) {
         console.error('Error fetching movies:', error.response?.data || error.message);
@@ -78,21 +50,26 @@ export const getMovies = async () => {
     }
 };
 
-
-
 // Fetch movies by cinema ID
-export const getMoviesByCinema = async (cinemaId) => {
-    console.log('getMoviesByCinema', cinemaId);
+export const getMoviesByCinema = async (theaterId) => {
+    console.log(`Fetching movies for theater ID: ${theaterId}`);
     try {
-        const response = await axios.get(`${BASE_URL}/theaters/${cinemaId}/movies`, {
+        // Fetch all movies
+        const response = await axios.get(`${BASE_URL}/movies`, {
             headers: {
                 'x-access-token': MANUAL_TOKEN,
             },
         });
-        console.log('Movies Response:', response.data);
-        return response.data.movies; // Adjust based on actual API response
+
+        // Filter movies based on theater ID in showtimes
+        const movies = response.data.filter(movie =>
+            movie.showtimes.some(showtime => showtime.cinema?.id === theaterId)
+        );
+
+        console.log(`Movies for Theater ${theaterId}:`, movies);
+        return movies;
     } catch (error) {
-        console.error('Fetch Movies Error:', error.response || error.message);
+        console.error('Error fetching movies by theater:', error.response?.data || error.message);
         throw error;
     }
 };
