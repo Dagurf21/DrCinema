@@ -17,8 +17,6 @@ const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => {
         const defaultMiddleware = getDefaultMiddleware({ serializableCheck: false });
-        console.log('Default Middleware:', defaultMiddleware);
-        console.log('Is loggerMiddleware a function:', typeof loggerMiddleware === 'function');
         return defaultMiddleware.concat(loggerMiddleware); // Add only custom middleware
     },
 });
