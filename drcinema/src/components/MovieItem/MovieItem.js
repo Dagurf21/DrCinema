@@ -1,10 +1,7 @@
-// src/components/MovieItem.js
-
 import React from 'react';
 import { TouchableOpacity, Text, Image, StyleSheet, View } from 'react-native';
 
 const MovieItem = ({ movie, onPress }) => {
-    console.log('Movie thumbnail URL:', movie.poster);
     return (
         <TouchableOpacity style={styles.itemContainer} onPress={() => onPress(movie)}>
             {movie.poster && (

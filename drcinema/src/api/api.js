@@ -129,13 +129,18 @@ export const getMoviesByCinema = async (theaterId) => {
 export const getMovieDetails = async (movieId) => {
     console.log('getMovieDetails', movieId);
     try {
-        const response = await axios.get(`${BASE_URL}/movies/${movieId}`, {
-            headers: {
-                'x-access-token': MANUAL_TOKEN,
-            },
-        });
-        console.log('Movie Details Response:', response.data);
-        return response.data.movie; // Adjust based on actual API response
+        // Fetch all movies
+        const movies = await getMovies();
+
+        // Find the movie with the matching ID
+        const movie = movies.find(movie => movie.id === movieId);
+
+        if (!movie) {
+            throw new Error(`Movie with ID ${movieId} not found`);
+        }
+
+        console.log('Movie Details:', movie);
+        return movie;
     } catch (error) {
         console.error('Fetch Movie Details Error:', error.response || error.message);
         throw error;
