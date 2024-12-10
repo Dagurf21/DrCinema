@@ -155,10 +155,21 @@ export const getUpcomingMovies = async () => {
                 'x-access-token': MANUAL_TOKEN,
             },
         });
-        console.log('Upcoming Movies Response:', response.data);
-        return response.data.upcomingMovies; // Adjust based on actual API response
+
+        // Log the entire response data
+        console.log('Full API Response:', response.data);
+
+        // Adjust based on the actual structure of the API response
+        if (Array.isArray(response.data)) {
+            return response.data; // If the data itself is an array
+        } else if (response.data.upcomingMovies) {
+            return response.data.upcomingMovies; // If movies are nested under a property
+        } else {
+            throw new Error('Unexpected API response structure');
+        }
     } catch (error) {
-        console.error('Fetch Upcoming Movies Error:', error.response || error.message);
+        console.error('Fetch Upcoming Movies Error:', error.response?.data || error.message);
         throw error;
     }
 };
+
