@@ -5,7 +5,7 @@ import {
     FETCH_CINEMAS_SUCCESS,
     FETCH_CINEMAS_FAILURE,
 } from './actionTypes';
-import { getCinemas } from '../../api/api';
+import { getCinemas } from '../../api/cinemaService';
 
 export const fetchCinemas = () => {
     console.log("cinemaActions.js");

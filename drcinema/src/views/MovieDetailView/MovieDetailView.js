@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
 
 const MovieDetailView = ({ route }) => {
     const { movie } = route.params;
 
-    // Ensure the poster URL is valid
     const posterUrl = movie.poster?.startsWith('http') ? movie.poster : `https://${movie.poster}`;
 
     return (
@@ -25,7 +24,28 @@ const MovieDetailView = ({ route }) => {
             <Text>
                 Genres: {movie.genres.map(genre => genre.Name).join(', ')}
             </Text>
-            <Text>{movie.description || "No description available"}</Text>
+
+            <Text style={styles.sectionTitle}>Showtimes:</Text>
+            {movie.showtimes?.length > 0 ? (
+                <FlatList
+                    data={movie.showtimes}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item }) => (
+                        <View style={styles.showtimeContainer}>
+                            <Text style={styles.cinemaName}>{item.cinema.name}</Text>
+                            <FlatList
+                                data={item.schedule}
+                                keyExtractor={(scheduleItem, idx) => idx.toString()}
+                                renderItem={({ item: scheduleItem }) => (
+                                    <Text>{scheduleItem.time}</Text> // Update field name if necessary
+                                )}
+                            />
+                        </View>
+                    )}
+                />
+            ) : (
+                <Text>No showtimes available for this cinema.</Text>
+            )}
         </View>
     );
 };
@@ -49,6 +69,18 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 22,
+        fontWeight: 'bold',
+    },
+    sectionTitle: {
+        fontSize: 18,
+        marginTop: 16,
+        fontWeight: 'bold',
+    },
+    showtimeContainer: {
+        marginVertical: 8,
+    },
+    cinemaName: {
+        fontSize: 16,
         fontWeight: 'bold',
     },
 });
