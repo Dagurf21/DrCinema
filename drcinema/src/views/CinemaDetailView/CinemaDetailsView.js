@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { View, Text, FlatList, Linking, ActivityIndicator, StyleSheet } from 'react-native';
+import {View, Text, FlatList, Linking, ActivityIndicator, StyleSheet, ScrollView} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMovies } from '../../redux/actions/movieActions';
 import MovieItem from '../../components/MovieItem/MovieItem';
+import styles from './styles';
 
 const CinemaDetailScreen = ({ route, navigation }) => {
     const { cinema } = route.params;
@@ -49,24 +50,35 @@ const CinemaDetailScreen = ({ route, navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
+            {/* Cinema Details */}
             <View style={styles.detailContainer}>
                 <Text style={styles.name}>{cinema.name}</Text>
-                <Text>{cinema.description || "No description available"}</Text>
-                <Text>
-                    Address: {cinema.address}, {cinema.city}
-                </Text>
-                <Text>Phone: {cinema.phone || "Unavailable"}</Text>
-                <Text
-                    style={styles.website}
-                    onPress={() => openWebsite(cinema.website)}
-                >
-                    Website: {cinema.website}
-                </Text>
+                <Text style={styles.description}>{cinema.description || 'No description'}</Text>
+                <View style={styles.details}>
+                    <View style={styles.detailedItem}>
+                        <Text style={styles.label}>Address:</Text>
+                        <Text style={styles.value}>
+                            {cinema.address}, {cinema.city}
+                        </Text>
+                    </View>
+                    <View style={styles.detailedItem}>
+                        <Text style={styles.label}>Phone: </Text>
+                        <Text style={styles.value}>{cinema.phone || 'Unavailable'}</Text>
+                    </View>
+                    <View style={styles.detailedItem}>
+                        <Text style={styles.label}>Website:</Text>
+                        <Text style={styles.website} onPress={() => openWebsite(cinema.website)}>
+                            {cinema.website}
+                        </Text>
+                    </View>
+                </View>
             </View>
 
+            {/* Section Title */}
             <Text style={styles.sectionTitle}>Movies Showing</Text>
 
+            {/* Movies Section */}
             {loading ? (
                 <ActivityIndicator size="large" color="#0000ff" />
             ) : error ? (
@@ -76,33 +88,12 @@ const CinemaDetailScreen = ({ route, navigation }) => {
                     data={movies}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({ item }) => <MovieItem movie={item} onPress={handleMoviePress} />}
+                    // Disable FlatList scrolling to allow the entire screen to scroll
+                    scrollEnabled={false}
                 />
             )}
-        </View>
+        </ScrollView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 16,
-    },
-    detailContainer: {
-        marginBottom: 16,
-    },
-    name: {
-        fontSize: 22,
-        fontWeight: 'bold',
-    },
-    website: {
-        color: 'blue',
-        textDecorationLine: 'underline',
-    },
-    sectionTitle: {
-        fontSize: 18,
-        marginVertical: 8,
-        fontWeight: 'bold',
-    },
-});
 
 export default CinemaDetailScreen;

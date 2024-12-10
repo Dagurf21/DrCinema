@@ -1,8 +1,11 @@
+// src/screens/CinemasScreen.js
+
 import React, { useEffect } from 'react';
-import { View, FlatList, ActivityIndicator, Text, StyleSheet, Button, ScrollView } from 'react-native';
+import {View, FlatList, ActivityIndicator, Text, Button, ScrollView} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCinemas } from '../../redux/actions/cinemaActions';
 import CinemaItem from '../../components/CinemaItem/CinemaItem';
+import styles from './styles';
 
 const CinemasScreen = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -38,7 +41,7 @@ const CinemasScreen = ({ navigation }) => {
     }
 
     return (
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <ScrollView style={styles.container}>
             <FlatList
                 data={cinemas}
                 keyExtractor={(item) => item.id.toString()}
@@ -51,21 +54,5 @@ const CinemasScreen = ({ navigation }) => {
         </ScrollView>
     );
 };
-
-const styles = StyleSheet.create({
-    scrollContainer: {
-        flexGrow: 1,
-        padding: 16,
-    },
-    center: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonContainer: {
-        marginTop: 16,
-        alignItems: 'center',
-    },
-});
 
 export default CinemasScreen;
