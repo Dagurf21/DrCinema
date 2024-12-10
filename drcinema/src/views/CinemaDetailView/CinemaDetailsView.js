@@ -17,8 +17,20 @@ const CinemaDetailScreen = ({ route, navigation }) => {
 
     const handleMoviePress = (movie) => {
         console.log('Selected Movie:', movie);
-        navigation.navigate('MovieDetail', { movie, cinema });
+        console.log('Cinema ID:', cinema.id);
+
+        const filteredShowtimes = movie.showtimes?.filter(
+            (showtime) => showtime.cinema?.id === cinema.id
+        ) || [];
+
+        navigation.navigate('MovieDetail', {
+            movie: {
+                ...movie,
+                showtimes: filteredShowtimes,
+            },
+        });
     };
+
 
     const openWebsite = (url) => {
         console.log(url);

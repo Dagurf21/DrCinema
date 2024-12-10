@@ -76,7 +76,6 @@ const normalizeCinema = (cinema) => {
 
 /* Gets all movies from the api */
 export const getMovies = async () => {
-
     console.log('getMovies');
     try {
         const response = await axios.get(`${BASE_URL}/movies`, {
@@ -139,7 +138,6 @@ export const getMovieDetails = async (movieId) => {
             throw new Error(`Movie with ID ${movieId} not found`);
         }
 
-        console.log('Movie Details:', movie);
         return movie;
     } catch (error) {
         console.error('Fetch Movie Details Error:', error.response || error.message);
@@ -156,9 +154,6 @@ export const getUpcomingMovies = async () => {
             },
         });
 
-        // Log the entire response data
-        console.log('Full API Response:', response.data);
-
         // Adjust based on the actual structure of the API response
         if (Array.isArray(response.data)) {
             return response.data; // If the data itself is an array
@@ -172,4 +167,48 @@ export const getUpcomingMovies = async () => {
         throw error;
     }
 };
+
+// Fetch showtimes of movie for specific cinema
+export const getShowtimesForMovie = async (movieId) => {
+    try {
+        if (!movieId) {
+            throw new Error('movieId is required to fetch showtimes.');
+        }
+
+        console.log(`Fetching details for movie with ID: ${movieId}`);
+
+        // Fetch the movie by its unique mongoid
+        const response = await axios.get(`${BASE_URL}/movies?mongoid=${movieId}`, {
+            headers: {
+                'x-access-token': MANUAL_TOKEN, // Use the token required by your API
+            },
+        });
+
+        const { success, data, message } = response.data;
+
+        if (!success) {
+            throw new Error(message || 'Failed to fetch movie details.');
+        }
+
+        if (!data || data.length === 0) {
+            throw new Error('No movie found for the given ID.');
+        }
+
+        // Assuming showtimes are part of the movie object
+        const movie = data[0];
+        console.log('Movie Details:', movie);
+
+        if (!movie.showtimes || !Array.isArray(movie.showtimes)) {
+            throw new Error('Showtimes not available for the specified movie.');
+        }
+
+        console.log('Showtimes:', movie.showtimes);
+        return movie.showtimes;
+
+    } catch (error) {
+        console.error('Error fetching showtimes for movie:', error.response?.data || error.message);
+        throw error;
+    }
+};
+
 
