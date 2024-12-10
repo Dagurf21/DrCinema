@@ -7,7 +7,7 @@ const BASE_URL = 'https://api.kvikmyndir.is';
 
 // Replace user:pass with username and password
 // curl --silent --location --request POST 'https://api.kvikmyndir.is/authenticate' --header "Authorization: Basic $(echo -n "user:pass" | base64)" | jq '.token' | sed 's/"//g'
-const MANUAL_TOKEN = TOKEN_KEY.TOKEN_KEY;
+const MANUAL_TOKEN = TOKEN_KEY;
 
 /*
  * Fetches all cinemas from the API
