@@ -16,8 +16,8 @@ const CinemaDetailScreen = ({ route, navigation }) => {
     }, [dispatch, cinema.id]);
 
     const handleMoviePress = (movie) => {
-        console.log('Selected Movie:', movie);
-        console.log('Cinema ID:', cinema.id);
+        //console.log('Selected Movie:', movie);
+        //console.log('Cinema ID:', cinema.id);
 
         const filteredShowtimes = movie.showtimes?.filter(
             (showtime) => showtime.cinema?.id === cinema.id
@@ -33,7 +33,7 @@ const CinemaDetailScreen = ({ route, navigation }) => {
 
 
     const openWebsite = (url) => {
-        console.log(url);
+        //console.log(url);
 
         if (!url) {
             console.error('Invalid URL');

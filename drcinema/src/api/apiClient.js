@@ -9,7 +9,4 @@ const apiClient = axios.create({
     },
 });
 
-console.log('Token being used:', TOKEN_KEY);
-
-
 export default apiClient;
