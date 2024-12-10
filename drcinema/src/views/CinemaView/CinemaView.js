@@ -1,7 +1,7 @@
 // src/screens/CinemasScreen.js
 
 import React, { useEffect } from 'react';
-import { View, FlatList, ActivityIndicator, Text, StyleSheet } from 'react-native';
+import {View, FlatList, ActivityIndicator, Text, Button, ScrollView} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCinemas } from '../../redux/actions/cinemaActions';
 import CinemaItem from '../../components/CinemaItem/CinemaItem';
@@ -41,7 +41,7 @@ const CinemasScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <FlatList
                 data={cinemas}
                 keyExtractor={(item) => item.id.toString()}
