@@ -12,8 +12,19 @@ const Stack = createStackNavigator();
 const AppNavigator = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Cinemas">
-                <Stack.Screen name="Cinemas" component={CinemasScreen} />
+            <Stack.Navigator
+                id = 'AppNavigator'
+                initialRouteName="Cinemas"
+                screenOptions={{
+                    headerStyle: {
+                        backgroundColor: '#672E80',
+                    },
+                    headerTintColor: 'white',
+                }}>
+                <Stack.Screen
+                    name="Cinemas"
+                    component={CinemasScreen}
+                />
                 <Stack.Screen
                     name="CinemaDetail"
                     component={CinemaDetailScreen}
@@ -33,5 +44,7 @@ const AppNavigator = () => {
         </NavigationContainer>
     );
 };
+
+
 
 export default AppNavigator;

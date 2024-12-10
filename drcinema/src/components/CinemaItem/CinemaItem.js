@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import styles from './styles';
 
 const CinemaItem = ({ cinema, onPress }) => {
     return (
@@ -12,19 +13,5 @@ const CinemaItem = ({ cinema, onPress }) => {
     );
 };
 
-const styles = StyleSheet.create({
-    itemContainer: {
-        padding: 16,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
-    },
-    cinemaName: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    cinemaWebsite: {
-        color: 'blue',
-    },
-});
 
 export default CinemaItem;
