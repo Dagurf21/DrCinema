@@ -22,33 +22,29 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
         fontWeight: 'bold',
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        textAlign: 'center',
     },
-    year: {
+    detailItem: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        borderRadius: 10,
+        backgroundColor: '#525252',
+        margin: 5,
+        padding: 10,
+        // marginTop: 10
+    },
+    detail: {
+        color: '#FFFFFF',
+        marginVertical: 5,
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+    value: {
         color: '#FFFFFF',
         marginVertical: 5,
         fontSize: 16
     },
-    plot: {
-        color: '#FFFFFF',
-        marginVertical: 5,
-        fontSize: 16
-    },
-    duration: {
-        color: '#FFFFFF',
-        marginVertical: 5,
-        fontSize: 16
-    },
-    genres: {
-        color: '#FFFFFF',
-        marginVertical: 5,
-        fontSize: 16
-    },
-    description: {
-        color: '#FFFFFF',
-        marginVertical: 5,
-        fontSize: 16
-    }
 });
 
 export default styles;

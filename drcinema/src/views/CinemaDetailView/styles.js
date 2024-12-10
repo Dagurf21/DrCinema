@@ -32,16 +32,16 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
     detailedItem: {
-        borderRadius: 15,
+        borderRadius: 10,
         backgroundColor: '#525252',
         marginVertical: 5,
         paddingVertical: 10,
         paddingHorizontal: 15
     },
-    lable: {
+    detail: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#FFFFFF',
+        color: '#232323'
     },
     value: {
         fontSize: 16,
