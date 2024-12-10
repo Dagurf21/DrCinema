@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
 import styles from './styles';
+import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
 
 const MovieDetailView = ({ route }) => {
     const { movie } = route.params;
@@ -27,6 +27,28 @@ const MovieDetailView = ({ route }) => {
                 Genres: {movie.genres.map(genre => genre.Name).join(', ')}
             </Text>
             <Text style={styles.description}>{movie.description || "No description available"}</Text>
+
+            <Text style={styles.sectionTitle}>Showtimes:</Text>
+            {movie.showtimes?.length > 0 ? (
+                <FlatList
+                    data={movie.showtimes}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item }) => (
+                        <View style={styles.showtimeContainer}>
+                            <Text style={styles.cinemaName}>{item.cinema.name}</Text>
+                            <FlatList
+                                data={item.schedule}
+                                keyExtractor={(scheduleItem, idx) => idx.toString()}
+                                renderItem={({ item: scheduleItem }) => (
+                                    <Text>{scheduleItem.time}</Text> // Update field name if necessary
+                                )}
+                            />
+                        </View>
+                    )}
+                />
+            ) : (
+                <Text>No showtimes available for this cinema.</Text>
+            )}
         </View>
     );
 };
