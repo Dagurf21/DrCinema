@@ -5,7 +5,7 @@ import {
     FETCH_MOVIES_SUCCESS,
     FETCH_MOVIES_FAILURE,
 } from './actionTypes';
-import { getMoviesByCinema } from '../../api/api';
+import { getMoviesByCinema } from '../../api/movieService';
 
 export const fetchMovies = (cinemaId) => {
     return async (dispatch) => {

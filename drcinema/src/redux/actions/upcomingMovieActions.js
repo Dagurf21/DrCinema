@@ -3,7 +3,7 @@ import {
     FETCH_UPCOMING_MOVIES_SUCCESS,
     FETCH_UPCOMING_MOVIES_FAILURE,
 } from './actionTypes';
-import { getUpcomingMovies } from '../../api/api';
+import { getUpcomingMovies } from '../../api/upcomingMoviesServices';
 
 export const fetchUpcomingMovies = () => {
     return async (dispatch) => {
