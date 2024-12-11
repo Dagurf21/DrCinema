@@ -57,17 +57,17 @@ const CinemaDetailScreen = ({ route, navigation }) => {
                 <Text style={styles.description}>{cinema.description || 'No description'}</Text>
                 <View style={styles.details}>
                     <View style={styles.detailedItem}>
-                        <Text style={styles.label}>Address:</Text>
+                        <Text style={styles.detail}>Address:</Text>
                         <Text style={styles.value}>
                             {cinema.address}, {cinema.city}
                         </Text>
                     </View>
                     <View style={styles.detailedItem}>
-                        <Text style={styles.label}>Phone: </Text>
+                        <Text style={styles.detail}>Phone: </Text>
                         <Text style={styles.value}>{cinema.phone || 'Unavailable'}</Text>
                     </View>
                     <View style={styles.detailedItem}>
-                        <Text style={styles.label}>Website:</Text>
+                        <Text style={styles.detail}>Website:</Text>
                         <Text style={styles.website} onPress={() => openWebsite(cinema.website)}>
                             {cinema.website}
                         </Text>
