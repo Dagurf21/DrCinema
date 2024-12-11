@@ -3,6 +3,7 @@ import { View, FlatList, Text, StyleSheet, Image, TouchableOpacity, Modal } from
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUpcomingMovies } from '../../redux/actions/upcomingMovieActions';
 import YoutubeIframe from 'react-native-youtube-iframe';
+import styles from './styles';
 
 const UpcomingMoviesView = () => {
     const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const UpcomingMoviesView = () => {
                 {trailerKey ? (
                     <YoutubeIframe
                         height={300}
+                        width="100%"
                         play={true}
                         videoId={trailerKey}
                         onError={(error) => console.error('❌ YouTube Error:', error)}
@@ -80,18 +82,5 @@ const UpcomingMoviesView = () => {
     );
 };
 
-const styles = StyleSheet.create({
-    container: { flex: 1 },
-    listContainer: { padding: 16 },
-    movieContainer: { flexDirection: 'row', marginBottom: 16 },
-    poster: { width: 80, height: 120, marginRight: 16 },
-    details: { flex: 1 },
-    movieName: { fontSize: 16, fontWeight: 'bold' },
-    releaseDate: { fontSize: 14, color: '#555' },
-    trailerText: { color: 'blue', textDecorationLine: 'underline' },
-    modalContainer: { flex: 1, backgroundColor: '#000', justifyContent: 'center' },
-    closeButton: { marginTop: 20, padding: 10, backgroundColor: '#fff', borderRadius: 5 },
-    closeButtonText: { color: '#000', fontWeight: 'bold' },
-});
-
 export default UpcomingMoviesView;
+
