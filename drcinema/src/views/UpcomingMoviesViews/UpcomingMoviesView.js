@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, ActivityIndicator, Text, StyleSheet, Image, TouchableOpacity, Modal } from 'react-native';
+import { View, FlatList, Text, StyleSheet, Image, TouchableOpacity, Modal } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUpcomingMovies } from '../../redux/actions/upcomingMovieActions';
 import YoutubeIframe from 'react-native-youtube-iframe';
@@ -7,7 +7,7 @@ import YoutubeIframe from 'react-native-youtube-iframe';
 const UpcomingMoviesView = () => {
     const dispatch = useDispatch();
     const upcomingMovieState = useSelector((state) => state.upcomingMovies);
-    const { loading, upcomingMovies, error } = upcomingMovieState;
+    const { upcomingMovies } = upcomingMovieState;
 
     const [trailerKey, setTrailerKey] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
@@ -20,14 +20,13 @@ const UpcomingMoviesView = () => {
         if (movie?.trailers?.length > 0) {
             const key = movie.trailers[0]?.results[0]?.key;
             if (!key) {
-                console.error('❌ Trailer key is missing for this movie.');
+                console.error('Trailer key is missing for this movie.');
                 return;
             }
-            console.log('🎉 Trailer Key:', key);
             setTrailerKey(key);
             setModalVisible(true);
         } else {
-            console.warn('⚠️ No trailer available for this movie:', movie.title);
+            console.warn('No trailer available for this movie:', movie.title);
         }
     };
 

@@ -12,7 +12,6 @@ export const getMovies = async () => {
 
 // Fetch movies by cinema ID
 export const getMoviesByCinema = async (theaterId) => {
-    console.log(`Fetching movies for theater ID: ${theaterId}`);
     try {
         const response = await apiClient.get('/movies');
         // Filter movies based on theater ID in showtimes

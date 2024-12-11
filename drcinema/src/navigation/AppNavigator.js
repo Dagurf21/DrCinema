@@ -18,8 +18,12 @@ const AppNavigator = () => {
                 screenOptions={{
                     headerStyle: {
                         backgroundColor: '#672E80',
+
                     },
                     headerTintColor: 'white',
+                    headerTitleStyle: {
+                        fontSize: 20
+                    }
                 }}>
                 <Stack.Screen
                     name="Cinemas"
