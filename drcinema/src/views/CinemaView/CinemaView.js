@@ -1,7 +1,5 @@
-// src/screens/CinemasScreen.js
-
 import React, { useEffect } from 'react';
-import {View, FlatList, ActivityIndicator, Text, Button, ScrollView} from 'react-native';
+import { View, FlatList, ActivityIndicator, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCinemas } from '../../redux/actions/cinemaActions';
 import CinemaItem from '../../components/CinemaItem/CinemaItem';
@@ -42,15 +40,17 @@ const CinemasScreen = ({ navigation }) => {
 
     return (
         <ScrollView style={styles.container}>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.button} onPress={handleUpcomingMoviesPress}>
+                    <Text style={styles.buttonText}>View Upcoming Movies</Text>
+                </TouchableOpacity>
+            </View>
             <FlatList
                 data={cinemas}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => <CinemaItem cinema={item} onPress={handleCinemaPress} />}
                 scrollEnabled={false} // Prevent FlatList scrolling, let ScrollView handle it
             />
-            <View style={styles.buttonContainer}>
-                <Button title="View Upcoming Movies" onPress={handleUpcomingMoviesPress} />
-            </View>
         </ScrollView>
     );
 };

@@ -1,5 +1,3 @@
-// src/views/MoviesScreen.js
-
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import { authenticate, fetchMovies } from '../../api/api';
@@ -13,9 +11,14 @@ const MoviesScreen = () => {
         const getMovies = async () => {
             try {
                 const token = await authenticate();
-                const moviesData = await fetchMovies(token);
-                setMovies(moviesData.movies); // Adjust based on API response structure
+                const moviesData = await fetchMovies(token); // Ensure `fetchMovies` matches API structure
+                if (moviesData && Array.isArray(moviesData.movies)) {
+                    setMovies(moviesData.movies);
+                } else {
+                    throw new Error('Invalid movie data structure.');
+                }
             } catch (err) {
+                console.error('Error fetching movies:', err.message || err);
                 setError('Failed to load movies.');
             } finally {
                 setLoading(false);
@@ -49,35 +52,12 @@ const MoviesScreen = () => {
                 renderItem={({ item }) => (
                     <View style={styles.movieItem}>
                         <Text style={styles.movieTitle}>{item.title}</Text>
-                        <Text>{item.description}</Text>
+                        <Text>{item.description || 'No description available.'}</Text>
                     </View>
                 )}
             />
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 16,
-        backgroundColor: '#fff',
-    },
-    center: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    movieItem: {
-        marginBottom: 20,
-        padding: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
-    },
-    movieTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-});
 
 export default MoviesScreen;
