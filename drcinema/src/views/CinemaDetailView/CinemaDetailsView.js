@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {View, Text, FlatList, Linking, ActivityIndicator, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, FlatList, Linking, ActivityIndicator, ScrollView} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMovies } from '../../redux/actions/movieActions';
 import MovieItem from '../../components/MovieItem/MovieItem';
@@ -7,7 +7,6 @@ import styles from './styles';
 
 const CinemaDetailScreen = ({ route, navigation }) => {
     const { cinema } = route.params;
-
     const dispatch = useDispatch();
     const movieState = useSelector((state) => state.movies);
     const { loading, movies, error } = movieState;
@@ -17,9 +16,6 @@ const CinemaDetailScreen = ({ route, navigation }) => {
     }, [dispatch, cinema.id]);
 
     const handleMoviePress = (movie) => {
-        //console.log('Selected Movie:', movie);
-        //console.log('Cinema ID:', cinema.id);
-
         const filteredShowtimes = movie.showtimes?.filter(
             (showtime) => showtime.cinema?.id === cinema.id
         ) || [];
@@ -34,13 +30,10 @@ const CinemaDetailScreen = ({ route, navigation }) => {
 
 
     const openWebsite = (url) => {
-        //console.log(url);
-
         if (!url) {
             console.error('Invalid URL');
             return;
         }
-
         // Ensure the URL includes http:// or https://
         const normalizedUrl = url.startsWith('http://') || url.startsWith('https://') ? url : `https://${url}`;
 

@@ -1,5 +1,4 @@
 import {StyleSheet} from "react-native";
-import MovieDetailView from "./MovieDetailView";
 
 const styles = StyleSheet.create({
     container: {

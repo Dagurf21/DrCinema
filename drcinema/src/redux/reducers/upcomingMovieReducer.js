@@ -16,7 +16,7 @@ const upcomingMovieReducer = (state = initialState, action) => {
             console.log('Reducer: FETCH_UPCOMING_MOVIES_REQUEST');
             return { ...state, loading: true };
         case FETCH_UPCOMING_MOVIES_SUCCESS:
-            console.log('Reducer: FETCH_UPCOMING_MOVIES_SUCCESS', action.payload);
+            console.log('Reducer: FETCH_UPCOMING_MOVIES_SUCCESS');
             return { loading: false, upcomingMovies: action.payload, error: null };
         case FETCH_UPCOMING_MOVIES_FAILURE:
             console.log('Reducer: FETCH_UPCOMING_MOVIES_FAILURE', action.payload);

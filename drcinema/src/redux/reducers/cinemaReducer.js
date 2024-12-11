@@ -13,13 +13,15 @@ const initialState = {
 };
 
 const cinemaReducer = (state = initialState, action) => {
-    //console.log("cinemaReducer ->", action);
     switch (action.type) {
         case FETCH_CINEMAS_REQUEST:
+            console.log('Redcuer: FETCH_CINEMAS_REQUEST');
             return { ...state, loading: true };
         case FETCH_CINEMAS_SUCCESS:
+            console.log('Redcuer: FETCH_CINEMAS_SUCCESS');
             return { loading: false, cinemas: action.payload, error: null };
         case FETCH_CINEMAS_FAILURE:
+            console.log('Reducer: FETCH_CINEMAS_FAILURE');
             return { loading: false, cinemas: [], error: action.payload };
         default:
             return state;

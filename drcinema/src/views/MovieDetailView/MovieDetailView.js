@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles';
-import {View, Text, StyleSheet, Image, FlatList, ScrollView} from 'react-native';
+import {View, Text, Image, FlatList, ScrollView} from 'react-native';
 
 const MovieDetailView = ({ route }) => {
     const { movie } = route.params;
@@ -30,10 +30,12 @@ const MovieDetailView = ({ route }) => {
                 <Text style={styles.value}>{movie.year}</Text>
             </View>
 
+            {/* Since Plot is no longer available through the api its commented out
             <View style={styles.detailItem}>
                 <Text style={styles.detail}>Plot: </Text>
                 <Text style={styles.value}>{movie.plot}</Text>
             </View>
+            */}
 
             <View style={styles.detailItem}>
                 <Text style={styles.detail}>Duration: </Text>
