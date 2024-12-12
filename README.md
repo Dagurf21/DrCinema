@@ -1,20 +1,32 @@
 # Dr. Cinema
 ## Description
 This project is a React Native application designed to display movies currently playing in cinemas, using data from the kvikmyndir.is API. With this app, you can easily browse cinemas, check out movie details, and see what’s coming soon. It’s designed to be simple, easy to use, and fun to explore!
-
-## Table of Contents
-- Installation
-- Features
-- Technologies Used
-- Platform Support
-- Project Structure
-- Setup Instructions
-- Running the App
-- Testing
-- Screenshots
-- Known Issues
-- Future Improvements
   
+# Preparing to run the app.
+These are crucial steps to be able to run the app.
+
+Go into the api folder under src
+```bash
+cd drcinema/src/api
+```
+In the api file you will find a `fetchToken.js` file. This script is used to create `token_key_secret.js` file. <br>
+Next run the following command and paste it into the file 
+
+```bash
+node -e "console.log(Buffer.from('myuser:mypassword').toString('base64'))" // replace with actual credentials
+```
+This should output something like this `bXl1c2VyOm15cGFzc3dvcmQ=` paste this into the `fetchToken.js`
+```bash
+// Replace this with your actual Base64 encoded credentials.
+const BASE64_CRED = 'Your base64 credentials';
+```
+We can then run the `fetchtoken.js` script like so.
+```bash
+node fetchToken.js
+```
+This should have created the `token_key_secret.js` which now has TOKEN_KEY needed to run the app.
+
+
 ## Running the app
 ### Navigate to project directory
 `cd drcinema`
@@ -27,40 +39,25 @@ This project is a React Native application designed to display movies currently 
 
 ## Technologies Used
 - React Native
-- React Navigation (if used)
-- State Management Solution (Redux/Context API/etc.)
-- [Any other major libraries/frameworks]
-  
+- React Navigation 
+- Redux
+
 ## Platform Support
 
 ### Primary Development Platform
-- Primary Platform: [iOS/Android]
-- Test Device: [e.g., iPhone 14 Pro/Samsung Galaxy S21]
-- OS Version: [e.g., iOS 16.5/Android 13]
+- Primary Platform: IOS
+- Test Device: iPhone 15 plus, iPhone 11, iPhone 12.
+- OS Version: IOS 18.1
   
-### Secondary Platform Testing
-- Secondary Platform: [iOS/Android]
-- Test Device: [e.g., iPhone 13/Google Pixel 6]
-- OS Version: [e.g., iOS 16.2/Android 12]
-- Testing Status: [Limited/Partial/Comprehensive]
-- Known Platform-Specific Issues: [List any issues specific to this
-platform]
-
 ### Platform-Specific Features
-- Only state here if any
-  
+- None
+
 ## Setup Instructions
 ### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
+- Node.js 
+- npm 
 - React Native CLI
-- Xcode (for iOS development)
-- Android Studio (for Android development)
   
 ### Environment Setup
-1. Install React Native dependencies
-2. Configure development environment
-3. Set up emulators/simulators
-   
-## Known Issues
-- [List issues]
+1. See Instructions above
+
