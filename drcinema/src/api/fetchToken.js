@@ -12,7 +12,6 @@ async function fetchToken() {
             }
         });
 
-        // Assuming the response is { token: "eyJ0eXAi..." }
         const token = response.data.token;
         if (!token) {
             throw new Error('Token not found in response.');
