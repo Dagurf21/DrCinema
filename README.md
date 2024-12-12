@@ -5,13 +5,16 @@ This project is a React Native application designed to display movies currently 
 # Preparing to run the app.
 These are crucial steps to be able to run the app.
 
+Start with installing dependencies
+```bash
+npm install
+```
 Go into the api folder under src
 ```bash
 cd drcinema/src/api
 ```
 In the api file you will find a `fetchToken.js` file. This script is used to create `token_key_secret.js` file. <br>
 Next run the following command and paste it into the file 
-
 ```bash
 node -e "console.log(Buffer.from('myuser:mypassword').toString('base64'))" // replace with actual credentials
 ```
